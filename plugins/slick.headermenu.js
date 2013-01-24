@@ -191,6 +191,11 @@
       for (var i = 0; i < menu.items.length; i++) {
         var item = menu.items[i];
 
+          if(item.separator){
+              $("<hr/>").appendTo($menu);
+              continue;
+          }
+
         var $li = $("<div class='slick-header-menuitem'></div>")
           .data("command", item.command || '')
           .data("column", columnDef)
@@ -206,15 +211,33 @@
           $li.attr("title", item.tooltip);
         }
 
-        var $icon = $("<div class='slick-header-menuicon'></div>")
-          .appendTo($li);
-
-        if (item.iconCssClass) {
-          $icon.addClass(item.iconCssClass);
+        if(item.onHover &&  typeof item.onHover == 'function'){
+          item.onHover($li);
         }
 
-        if (item.iconImage) {
-          $icon.css("background-image", "url(" + item.iconImage + ")");
+        var $icon = $("<div class='slick-header-menuicon'></div>")
+
+        if(item.isSelectable){
+          var checkbox = $("<input type='checkbox' value="+ item.command +">");
+
+          if(item.isChecked){
+            checkbox.attr("checked", "checked");
+          }
+
+          checkbox.appendTo($icon);
+          $icon.appendTo($li);
+
+        } else if(item.iconImage || item.iconCssClass){
+
+          if (item.iconCssClass) {
+            $icon.addClass(item.iconCssClass);
+          }
+
+          if (item.iconImage) {
+            $icon.css("background-image", "url(" + item.iconImage + ")");
+          }
+
+          $icon.appendTo($li);
         }
 
         $("<span class='slick-header-menucontent'></span>")
@@ -226,7 +249,8 @@
       // Position the menu.
       $menu
         .css("top", $(this).offset().top + $(this).height())
-        .css("left", $(this).offset().left);
+        .css("left", $(this).offset().left)
+        .css("margin-left", -($menu.width()));
 
 
       // Mark the header as active to keep the highlighting.
@@ -264,6 +288,7 @@
     $.extend(this, {
       "init": init,
       "destroy": destroy,
+      "hide": hideMenu,
 
       "onBeforeMenuShow": new Slick.Event(),
       "onCommand": new Slick.Event()
