@@ -217,9 +217,13 @@
           $icon.css("background-image", "url(" + item.iconImage + ")");
         }
 
-        $("<span class='slick-header-menucontent'></span>")
-          .text(item.title)
-          .appendTo($li);
+        var menuContent = $("<span class='slick-header-menucontent'></span>")
+
+        menuContent.text(item.title).appendTo($li);
+
+        if(item.contentClass){
+            menuContent.addClass(item.contentClass);
+        }
       }
 
 
@@ -228,6 +232,9 @@
         .css("top", $(this).offset().top + $(this).height())
         .css("left", $(this).offset().left);
 
+      if(menu.alignRight){
+        $menu.css("margin-left", -($menu.width()));
+      }
 
       // Mark the header as active to keep the highlighting.
       $activeHeaderColumn = $menuButton.closest(".slick-header-column");
