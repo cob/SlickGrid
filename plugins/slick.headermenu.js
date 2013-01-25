@@ -217,9 +217,13 @@
           $icon.css("background-image", "url(" + item.iconImage + ")");
         }
 
-        $("<span class='slick-header-menucontent'></span>")
-          .text(item.title)
-          .appendTo($li);
+        var menuContent = $("<span class='slick-header-menucontent'></span>")
+
+        menuContent.text(item.title).appendTo($li);
+
+        if(item.contentClass){
+            menuContent.addClass(item.contentClass);
+        }
       }
 
 
