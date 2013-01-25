@@ -248,6 +248,9 @@
         .css("top", $(this).offset().top + $(this).height())
         .css("left", $(this).offset().left);
 
+      if(menu.alignRight){
+        $menu.css("margin-left", -($menu.width()));
+      }
 
       // Mark the header as active to keep the highlighting.
       $activeHeaderColumn = $menuButton.closest(".slick-header-column");
