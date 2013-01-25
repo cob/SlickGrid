@@ -211,22 +211,33 @@
           $li.attr("title", item.tooltip);
         }
 
-        var $icon = $("<div class='slick-header-menuicon'></div>")
-          .appendTo($li);
+        var $icon = $("<div class='slick-header-menuicon'></div>");
 
-        if (item.iconCssClass) {
-          $icon.addClass(item.iconCssClass);
-        }
+        if(item.isSelectable){
+            var checkbox = $("<input type='checkbox' value="+ item.command +">");
 
-        if (item.iconImage) {
-          $icon.css("background-image", "url(" + item.iconImage + ")");
-        }
+            if(item.isChecked){
+                checkbox.attr("checked", "checked");
+            }
 
-        $("<span class='slick-header-menucontent'></span>")
-          .text(item.title)
-          .appendTo($li);
+            checkbox.appendTo($icon);
+            $icon.appendTo($li);
+
+        } else if(item.iconImage || item.iconCssClass){
+            if (item.iconCssClass) {
+                $icon.addClass(item.iconCssClass);
+            }
+
+            if (item.iconImage) {
+                $icon.css("background-image", "url(" + item.iconImage + ")");
+            }
+
+            $icon.appendTo($li);
       }
 
+      $("<span class='slick-header-menucontent'></span>")
+        .text(item.title)
+        .appendTo($li);
 
       // Position the menu.
       $menu
