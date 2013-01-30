@@ -100,13 +100,13 @@
       _grid.setColumns(_grid.getColumns());
 
       // Hide the menu on outside click.
-      $(document.body).bind("mousedown", handleBodyMouseDown);
+      $(document.body).bind("click", handleBodyMouseDown);
     }
 
 
     function destroy() {
       _handler.unsubscribeAll();
-      $(document.body).unbind("mousedown", handleBodyMouseDown);
+      $(document.body).unbind("click", handleBodyMouseDown);
     }
 
 
@@ -148,9 +148,13 @@
           $el.attr("title", menu.tooltip);
         }
 
-        $el
-          .bind("click", showMenu)
-          .appendTo(args.node);
+        //Make the button show/hide the menu
+        $el.bind("click",function(e) {
+            if (!$menu) {
+                e.stopPropagation();
+                showMenu.call(this, [e]);
+            }
+        }).appendTo(args.node);
       }
     }
 
@@ -168,9 +172,6 @@
       var $menuButton = $(this);
       var menu = $menuButton.data("menu");
       var columnDef = $menuButton.data("column");
-
-        //Add listener to open/close the menu
-        $menuButton.on("click", onMenuButtonClick);
 
       // Let the user modify the menu or cancel altogether,
       // or provide alternative menu implementation.
@@ -240,15 +241,6 @@
       $activeHeaderColumn = $menuButton.closest(".slick-header-column");
       $activeHeaderColumn
         .addClass("slick-header-column-active");
-    }
-
-    function onMenuButtonClick(e){
-        if($menu){
-            hideMenu();
-            $(this).off("click", onMenuButtonClick);
-        }else{
-            showMenu(e);
-        }
     }
 
     function handleMenuItemClick(e) {
