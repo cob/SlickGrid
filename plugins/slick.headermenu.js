@@ -99,12 +99,6 @@
       // Force the grid to re-render the header now that the events are hooked up.
       _grid.setColumns(_grid.getColumns());
 
-      $(window).resize(function(e){
-        //The menu has an absolute position, so we have to hide it
-        //when the window is resized, or it will be overridden by the window
-        hideMenu();
-      });
-
         // Hide the menu on outside click.
       $(document.body).bind("mousedown", handleBodyMouseDown);
     }
