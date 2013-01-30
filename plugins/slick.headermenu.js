@@ -100,17 +100,17 @@
       _grid.setColumns(_grid.getColumns());
 
       // Hide the menu on outside click.
-      $(document.body).bind("click", handleBodyMouseDown);
+      $(document.body).bind("click", handleBodyClick);
     }
 
 
     function destroy() {
       _handler.unsubscribeAll();
-      $(document.body).unbind("click", handleBodyMouseDown);
+      $(document.body).unbind("click", handleBodyClick);
     }
 
 
-    function handleBodyMouseDown(e) {
+    function handleBodyClick(e) {
       if ($menu && $menu[0] != e.target && !$.contains($menu[0], e.target)) {
         hideMenu();
       }
