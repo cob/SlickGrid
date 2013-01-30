@@ -266,7 +266,10 @@
         return;
       }
 
-      hideMenu();
+      //Change the item checkbox value
+      if(item.hasOwnProperty("isChecked")){
+        item.isChecked = !item.isChecked;
+      }
 
       if (command != null && command != '') {
         _self.onCommand.notify({
@@ -282,9 +285,25 @@
       e.stopPropagation();
     }
 
+    function getSelectableMenuItems(selected){
+        return $("input[type='checkbox']", $menu);
+    }
+
+    function setMenuItemSelection(command, selected){
+        var menuItem = $("input[value='"+ command +"']", $menu);
+
+        if(selected){
+            menuItem.attr("checked","checked");
+        }else{
+            menuItem.removeAttr("checked");
+        }
+    }
+
     $.extend(this, {
       "init": init,
       "destroy": destroy,
+      "getSelectableItems": getSelectableMenuItems,
+      "setMenuItemSelection": setMenuItemSelection,
 
       "onBeforeMenuShow": new Slick.Event(),
       "onCommand": new Slick.Event()
