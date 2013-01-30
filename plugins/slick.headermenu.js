@@ -99,13 +99,7 @@
       // Force the grid to re-render the header now that the events are hooked up.
       _grid.setColumns(_grid.getColumns());
 
-      $(window).resize(function(e){
-        //The menu has an absolute position, so we have to hide it
-        //when the window is resized, or it will be overridden by the window
-        hideMenu();
-      });
-
-        // Hide the menu on outside click.
+      // Hide the menu on outside click.
       $(document.body).bind("mousedown", handleBodyMouseDown);
     }
 
@@ -175,9 +169,6 @@
       var menu = $menuButton.data("menu");
       var columnDef = $menuButton.data("column");
 
-        //Add listener to open/close the menu
-        $menuButton.on("click", onMenuButtonClick);
-
       // Let the user modify the menu or cancel altogether,
       // or provide alternative menu implementation.
       if (_self.onBeforeMenuShow.notify({
@@ -246,15 +237,6 @@
       $activeHeaderColumn = $menuButton.closest(".slick-header-column");
       $activeHeaderColumn
         .addClass("slick-header-column-active");
-    }
-
-    function onMenuButtonClick(e){
-        if($menu){
-            hideMenu();
-            $(this).off("click", onMenuButtonClick);
-        }else{
-            showMenu(e);
-        }
     }
 
     function handleMenuItemClick(e) {
