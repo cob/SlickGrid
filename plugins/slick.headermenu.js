@@ -272,13 +272,7 @@
     }
 
     function setMenuItemSelection(command, selected){
-        var menuItem = $("input[value='"+ command +"']", $menu);
-
-        if(selected){
-            menuItem.attr("checked","checked");
-        }else{
-            menuItem.removeAttr("checked");
-        }
+        $("input[value='"+ command +"']", $menu).prop('checked', selected);
     }
 
     $.extend(this, {
