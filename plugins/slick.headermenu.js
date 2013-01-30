@@ -247,7 +247,9 @@
         menuContent.addClass(item.contentClass);
        }
 
-      // Position the menu.
+      }
+
+        // Position the menu.
       $menu
         .css("top", $(this).offset().top + $(this).height())
         .css("left", $(this).offset().left);
@@ -271,7 +273,10 @@
         return;
       }
 
-      hideMenu();
+      //Change the item checkbox value
+      if(item.hasOwnProperty("isChecked")){
+        item.isChecked = !item.isChecked;
+      }
 
       if (command != null && command != '') {
         _self.onCommand.notify({
@@ -287,10 +292,19 @@
       e.stopPropagation();
     }
 
+    function getSelectableMenuItems(selected){
+        return $("input[type='checkbox']", $menu);
+    }
+
+    function setMenuItemSelection(command, selected){
+        $("input[value='"+ command +"']", $menu).prop('checked', selected);
+    }
+
     $.extend(this, {
       "init": init,
       "destroy": destroy,
-      "hide": hideMenu,
+      "getSelectableItems": getSelectableMenuItems,
+      "setMenuItemSelection": setMenuItemSelection,
 
       "onBeforeMenuShow": new Slick.Event(),
       "onCommand": new Slick.Event()
