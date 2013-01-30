@@ -175,6 +175,9 @@
       var menu = $menuButton.data("menu");
       var columnDef = $menuButton.data("column");
 
+        //Add listener to open/close the menu
+        $menuButton.on("click", onMenuButtonClick);
+
       // Let the user modify the menu or cancel altogether,
       // or provide alternative menu implementation.
       if (_self.onBeforeMenuShow.notify({
@@ -245,6 +248,14 @@
         .addClass("slick-header-column-active");
     }
 
+    function onMenuButtonClick(e){
+        if($menu){
+            hideMenu();
+            $(this).off("click", onMenuButtonClick);
+        }else{
+            showMenu(e);
+        }
+    }
 
     function handleMenuItemClick(e) {
       var command = $(this).data("command");
