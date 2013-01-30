@@ -99,7 +99,7 @@
       // Force the grid to re-render the header now that the events are hooked up.
       _grid.setColumns(_grid.getColumns());
 
-        // Hide the menu on outside click.
+      // Hide the menu on outside click.
       $(document.body).bind("mousedown", handleBodyMouseDown);
     }
 
