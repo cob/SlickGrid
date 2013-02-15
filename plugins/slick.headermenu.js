@@ -249,14 +249,19 @@
 
       }
 
-        // Position the menu.
+      // Position the menu.
+      var topOffset = $(this).offset().top + $(this).height();
+
       $menu
-        .css("top", $(this).offset().top + $(this).height())
+        .css("top", topOffset)
         .css("left", $(this).offset().left);
 
       if(menu.alignRight){
         $menu.css("margin-left", -($menu.width()));
       }
+
+      // Stop the menu from growing above the window height
+      $menu.css("max-height", ($(window).height() - topOffset) * 0.95);
 
       // Mark the header as active to keep the highlighting.
       $activeHeaderColumn = $menuButton.closest(".slick-header-column");
